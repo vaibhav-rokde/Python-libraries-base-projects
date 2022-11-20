@@ -1,2 +1,2 @@
 
-<img src="https://github.com/vaibhav-rokde/private-projects/blob/main/emailsender/emailsender.gif" width="110" height="110" />
+<img src="https://github.com/vaibhav-rokde/Python-libraries-base-projects/blob/main/Bulk%20Email%20Sender%20GUI/emailsender.gif" width="300" height="350" />
