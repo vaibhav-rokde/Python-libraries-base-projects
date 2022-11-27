@@ -125,4 +125,4 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 import os
-MODELS = os.path.join(BASE_DIR, 'ml\models')#H:\vaibhav\PycharmProjects\ML\ML-Django\mainapp\ml\model
+MODELS = os.path.join(BASE_DIR, 'ml\model')#H:\vaibhav\PycharmProjects\ML\ML-Django\mainapp\ml\model
