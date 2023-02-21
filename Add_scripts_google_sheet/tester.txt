@@ -1,0 +1,51 @@
+function onOpen() {
+  var ui = SpreadsheetApp.getUi();
+  ui.createMenu('My Menu')
+      .addItem('Select Folder', 'selectFolder')
+      .addToUi();
+}
+
+function selectFolder() {
+  var folderId = pickFolder();
+  if (folderId) {
+    var folder = DriveApp.getFolderById(folderId);
+    var files = folder.getFiles();
+    var folders = folder.getFolders();
+    var sheet = SpreadsheetApp.getActiveSheet();
+    sheet.clearContents();
+    sheet.appendRow(['Name', 'URL']);
+    while (files.hasNext()) {
+      var file = files.next();
+      sheet.appendRow([file.getName(), file.getUrl()]);
+    }
+    while (folders.hasNext()) {
+      var folder = folders.next();
+      sheet.appendRow([folder.getName(), folder.getUrl()]);
+    }
+  }
+}
+
+function pickFolder() {
+  var picker = createPicker();
+  picker.addView(google.picker.ViewId.FOLDERS);
+  picker.setSelectableMimeTypes('application/vnd.google-apps.folder');
+  picker.setTitle('Select a folder');
+  picker.setCallback(pickerCallback);
+  picker.setVisible(true);
+}
+
+function createPicker() {
+  var picker = new google.picker.PickerBuilder()
+      .addView(new google.picker.DocsView())
+      .setOAuthToken(ScriptApp.getOAuthToken())
+      .setDeveloperKey('YOUR_DEVELOPER_KEY')
+      .setCallback(pickerCallback);
+  return picker.build();
+}
+
+function pickerCallback(data) {
+  if (data.action == google.picker.Action.PICKED) {
+    var folderId = data.docs[0].id;
+    return folderId;
+  }
+}
